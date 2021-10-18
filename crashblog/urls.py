@@ -21,7 +21,7 @@ from core.views import frontpage, about
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', frontpage, name='frontpage'),
-    path('', include('blog.urls')),
     path('about/', about, name='about'),
+    path('', include('blog.urls')),
+    path('', frontpage, name='frontpage'),
 ]
