@@ -1,10 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
 
-from .models import Post
+from .models import Post, Category
 
 from .forms import CommentForm
 
-def detail(request, slug):
+def detail(request, category_slug, slug):
     post = get_object_or_404(Post, slug=slug)
 
     if request.method == 'POST':
@@ -20,4 +20,9 @@ def detail(request, slug):
         form = CommentForm()
 
     return render(request, 'blog/detail.html', {'post': post, 'form': form})
+
+def category(request, slug):
+    category = get_object_or_404(Category, slug=slug)
+
+    return render(request, 'blog/category.html', {'category': category})
 

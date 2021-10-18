@@ -1,0 +1,32 @@
+{% extends 'core/base.html' %}
+
+{% block title %}{{ category.title }} | {% endblock %}
+
+{% block content %}
+
+    #tambahkan disini
+    <section class="hero ">
+    	<div class="hero-body">
+            <div class="container">
+                <section class="section">
+                    <div class="columns">
+                        <div class="column is-8 is-offset-2">
+                            {% for post in category.posts.all %}
+                                <div class="content is-medium mt-4">
+                                    <a href="{% url 'post_detail' post.category.slug post.slug %}">
+                                      <h2 class="subtitle is-4">{{ post.created_at|date:'M-d-Y' }}</h2>
+                                      <h1 class="title">{{ post.title }}</h1>
+                                      <p class="has-text-dark">{{ post.intro }}</p>
+                                    </a>
+                                </div>
+                                <a href="{% url 'post_detail' post.category.slug post.slug %}">Read more</a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </section>
+
+
+{% endblock %}
