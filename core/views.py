@@ -1,7 +1,16 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 
 from blog.models import Post
 # Create your views here.
+def robots_txt(request):
+    text = [
+        "User-Agent: *",
+        "Disallow: /admin/",
+    ]
+
+    return HttpResponse("\n".join(text), content_type="text/plain")
+
 def frontpage(request):
     posts = Post.objects.filter(status=Post.ACTIVE)
 
