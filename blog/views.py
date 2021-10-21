@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 
 from .models import Post, Category
 
+import random
+
 from .forms import CommentForm
 
 from django.db.models import Q
@@ -9,6 +11,10 @@ from django.db.models import Q
 
 def detail(request, category_slug, slug):
     post = get_object_or_404(Post, slug=slug, status=Post.ACTIVE)
+
+    related_posts = list(post.category.posts.filter(parent=None).exclude(id=post.id))
+    if len(related_posts) >=3:
+        related_posts = random.sample(related_posts, 3)
 
     if request.method == 'POST':
         form = CommentForm(request.POST)
@@ -22,7 +28,7 @@ def detail(request, category_slug, slug):
     else:
         form = CommentForm()
 
-    return render(request, 'blog/detail.html', {'post': post, 'form': form})
+    return render(request, 'blog/detail.html', {'post': post, 'form': form, 'related_posts': related_posts })
 
 def category(request, slug):
     category = get_object_or_404(Category, slug=slug)
