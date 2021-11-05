@@ -3,18 +3,20 @@
 {% block title %}{{ post.title}} | {% endblock %}
 
 {% block content %}
-    <section class="hero ">
-        <div class="hero-body">
-      	    <div class="container">
+
+    <section class="hero is-fullheight">
+		<div class="hero-body">
+			<div class="container has-text-centered">
                 <section class="section">
-                    <div class="columns">
-                        <div class="column is-8 is-offset-2">
+                    <div class="columns is-8 is-variable ">
+                        <div class="column is-two-thirds has-text-left">
                             {% if post.image %}
                                 <figure class='image mb-6'>
                                     <img src="{{ post.image.url }}">
                                 </figure>
                             {% endif %}
-                            <div class="content is-medium">
+
+                            <div class="content is-medium mt-4">
                                 <h2 class="subtitle is-4">{{ post.created_at|date:'M-d-Y' }}</h2>
                                 <h1 class="title">{{ post.title }}</h1>
                                 <p><strong>{{ post.intro }}</strong></p>
@@ -57,6 +59,9 @@
                                 </div>
                             </form>
                         </div>
+
+                        {% include 'parts/post_popular.html' %}
+
                     </div>
                 </section>
       	    </div>

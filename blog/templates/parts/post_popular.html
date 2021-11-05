@@ -1,0 +1,22 @@
+<div class="column is-one-third has-text-left">
+    <h2 class="subtitle"><strong>Popular post:</strong></h2>
+
+    {% for popular_post in popular_posts %}
+          <article class="media">
+            <div class="media-left">
+              <figure class="image is-64x64">
+                {% if popular_post.thumbnail %}
+                    <img src="{{ popular_post.get_thumbnail }}">
+                {% endif %}
+              </figure>
+            </div>
+            <div class="media-content">
+              <div class="content">
+                <p>
+                    <a href="{% url 'post_detail' popular_post.category.slug popular_post.slug %}">{{ popular_post.title }}</a>
+                </p>
+              </div>
+            </div>
+          </article>
+    {% endfor %}
+</div>

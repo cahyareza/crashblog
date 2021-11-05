@@ -3,32 +3,65 @@
 {% block title %}{{ category.title }} | {% endblock %}
 
 {% block content %}
-    <section class="hero ">
-    	<div class="hero-body">
-            <div class="container">
+    <section class="hero is-fullheight">
+        <div class="hero-body">
+            <div class="container has-text-centered">
                 <section class="section">
-                    <div class="columns">
-                        <div class="column is-8 is-offset-2">
-                            {% for post in posts %}
+                    <div class="columns is-8 is-variable ">
+                        <div class="column is-two-thirds has-text-left">
+                            {% for post in post_list %}
+                                <br>
+                                {% if post.image %}
+                                    <figure class='image'>
+                                        <img src="{{ post.image.url }}">
+                                    </figure>
+                                {% endif %}
                                 <div class="content is-medium mt-4">
-                                    <a href="{% url 'post_detail' post.category.slug post.slug %}">
-                                      <h2 class="subtitle is-4">{{ post.created_at|date:'M-d-Y' }}</h2>
-                                      <h1 class="title">{{ post.title }}</h1>
-                                      <p class="has-text-dark">{{ post.intro }}</p>
-                                    </a>
+                                    <h2 class="subtitle is-4">{{ post.created_at|date:'M-d-Y' }}</h2>
+                                    <h1 class="title">{{ post.title }}</h1>
+                                    <p class="has-text-dark">{{ post.intro }}</p>
                                 </div>
                                 <a href="{% url 'post_detail' post.category.slug post.slug %}">Read more</a>
+                                <br>
                             {% empty %}
                                 <div class="content">
                                     <p>There is no posts in this category...</p>
                                 </div>
                             {% endfor %}
+
+                            <hr>
+
+                            {% if post_list.has_other_pages %}
+                                <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+                                    {% if post_list.has_previous %}
+                                        <a href="?page={{ post_list.previous_page_number }}" class="pagination-previous">Previous</a>
+                                    {% else %}
+                                        <a class="pagination-previous">Previous</a>
+                                    {% endif %}
+                                    {% if post_list.has_next %}
+                                        <a href="?page={{ post_list.next_page_number }}" class="pagination-next">Next page</a>
+                                    {% else %}
+                                        <a class="pagination-next">Next page</a>
+                                    {% endif %}
+                                    <ul class="pagination-list">
+                                        {% for i in post_list.paginator.page_range %}
+                                            {% if post_list.number == i %}
+                                                <li><a class="pagination-link is-current" aria-label="Page {{ i }}" aria-current="page">{{ i }}</a></li>
+                                            {% else %}
+                                                <li><a class="pagination-link" aria-label="Goto page {{ i }}">{{ i }}</a></li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </nav>
+                            {% endif %}
                         </div>
+
+                        {% include 'parts/post_popular.html' %}
+
                     </div>
                 </section>
             </div>
         </div>
     </section>
-
 
 {% endblock %}
