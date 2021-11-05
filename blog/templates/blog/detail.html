@@ -28,34 +28,9 @@
 
                             <h2 class="subtitle">Related products</h2>
 
-                            <div class="columns is-multiline">
-                                {% for related_product in related_products %}
-                                    <div class="column is-3">
-                                        <div class="card">
-                                            <div class="card-image">
-                                                <figure class="image">
-                                                    {% if related_product.thumbnail %}
-                                                        <img src="{{ related_product.thumbnail.url }}">
-                                                    {% endif %}
-                                                </figure>
-                                            </div>
-
-                                            <div class="card-content">
-                                                <div class="media">
-                                                    <div class="media-content">
-                                                        <p class="title is-4">{{ related_product.title }}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <footer class="card-footer">
-                                                <a href="{% url 'product_detail' related_product.category.slug related_product.slug %}" class="card-footer-item">View</a>
-                                            </footer>
-                                        </div>
-                                    </div>
-                                {% endfor %}
-                            </div>
-
+                            {% with related_posts as post_lists %}
+                                {% include 'parts/post_list.html' %}
+                            {% endwith %}
 
                             <hr>
 

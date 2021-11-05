@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from blog.models import Post
 
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
@@ -15,6 +16,7 @@ def robots_txt(request):
 
 def frontpage(request):
     posts = Post.objects.filter(status=Post.ACTIVE)
+    popular_posts = Post.objects.all().order_by('-num_visits')[0:4]
     paginator = Paginator(posts, 3)  # 3 posts in each page
     page = request.GET.get('page', 1)
     try:
@@ -26,7 +28,14 @@ def frontpage(request):
         # If page is out of range deliver last page of results
         post_list = paginator.page(paginator.num_pages)
 
-    return render(request, 'core/frontpage.html', { 'posts': posts, 'page': page, 'post_list': post_list })
+    context = {
+        'posts': posts,
+        'page': page,
+        'post_list': post_list,
+        'popular_posts': popular_posts
+    }
+
+    return render(request, 'core/frontpage.html', context )
 
 def about(request):
     return render(request, 'core/about.html')

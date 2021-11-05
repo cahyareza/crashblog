@@ -11,10 +11,12 @@ from django.db.models import Q
 
 def detail(request, category_slug, slug):
     post = get_object_or_404(Post, slug=slug, status=Post.ACTIVE)
+    post.num_visits = post.num_visits + 1
+    post.save()
 
     related_posts = list(post.category.posts.filter(parent=None).exclude(id=post.id))
-    if len(related_posts) >=3:
-        related_posts = random.sample(related_posts, 3)
+    if len(related_posts) >=4:
+        related_posts = random.sample(related_posts, 4)
 
     if request.method == 'POST':
         form = CommentForm(request.POST)

@@ -40,6 +40,8 @@ class Post(models.Model):
     image = models.ImageField(upload_to='uploads/', blank=True, null=True)
     thumbnail = models.ImageField(upload_to='uploads/', blank=True, null=True)
 
+    num_visits = models.IntegerField(default=0)
+
     class meta:
         ordering = ('-created_at',)
 
@@ -49,10 +51,10 @@ class Post(models.Model):
     def get_absolute_url(self):
         return '/%s/%s/' % (self.category.slug, self.slug)
 
-    def save(self, *args, **kwargs):
-        self.thumbnail = self.make_thumbnail(self.image)
-
-        super().save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     self.thumbnail = self.make_thumbnail(self.image)
+    #
+    #     super().save(*args, **kwargs)
 
     def make_thumbnail(selfself, image, size=(300, 200)):
         img = Image.open(image)
@@ -65,6 +67,18 @@ class Post(models.Model):
         thumbnail = File(thumb_io, name=image.name)
 
         return thumbnail
+
+    def get_thumbnail(self):
+        if self.thumbnail:
+            return self.thumbnail.url
+        else:
+            if self.image:
+                self.thumbnail = self.make_thumbnail(self.image)
+                self.save()
+
+                return self.thumbnail.url
+            else:
+                return ''
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)
