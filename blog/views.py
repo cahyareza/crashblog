@@ -1,15 +1,9 @@
-from django.shortcuts import render, get_object_or_404, redirect
-
-from .models import Post, Category
-
 import random
-
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Post, Category
 from .forms import CommentForm
-
 from django.db.models import Q
-
 from datetime import datetime
-
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 
