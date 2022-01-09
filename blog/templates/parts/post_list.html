@@ -1,9 +1,9 @@
 <div class="columns is-multiline">
     {% for p in post_lists %}
-        <div class="column is-3">
+        <div class="column is-4">
             <div class="card">
                 <div class="card-image">
-                    <figure class="image">
+                    <figure class="image is-4by3">
                         {% if p.thumbnail %}
                             <img src="{{ p.get_thumbnail }}">
                         {% endif %}
@@ -13,7 +13,7 @@
                 <div class="card-content">
                     <div class="media">
                         <div class="media-content">
-                            <p class="title is-4">{{ p.title }}</p>
+                            <p href="{% url 'post_detail' p.category.slug p.slug %}" class="title is-6">{{ p.title }}</p>
                         </div>
                     </div>
                 </div>

@@ -58,7 +58,26 @@ def category(request, slug):
 
 def search(request):
     query = request.GET.get('query', '')
+    popular_posts = Post.objects.all().order_by('-num_visits')[0:4]
 
     posts = Post.objects.filter(status=Post.ACTIVE).filter(Q(title__icontains=query) | Q(intro__icontains=query) | Q(body__icontains=query))
 
-    return render(request, 'blog/search.html', {'posts': posts, 'query': query})
+    paginator = Paginator(posts, 3)  # 3 posts in each page
+    page = request.GET.get('page', 1)
+    try:
+        post_list = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer deliver the first page
+        post_list = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range deliver last page of results
+        post_list = paginator.page(paginator.num_pages)
+
+    context = {
+        'posts':posts,
+        'post_list': post_list,
+        'popular_posts': popular_posts,
+        'query': query
+    }
+
+    return render(request, 'blog/search.html', context)
