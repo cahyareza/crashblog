@@ -58,6 +58,7 @@
                                                     <article class="media" v-if="isShow">
                                                         <form method='post' >
                                                             {% csrf_token %}
+                                                            <input type="hidden" name="comment_id" value="{{ comment.id }}">
                                                             {{ form.as_p }}
 
                                                             <div class='field'>
