@@ -1,6 +1,6 @@
 import random
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Post, Category
+from .models import Post, Category, Comment
 from .forms import CommentForm
 from django.db.models import Q
 from datetime import datetime
@@ -18,19 +18,34 @@ def detail(request, category_slug, slug):
     if len(related_posts) >=4:
         related_posts = random.sample(related_posts, 4)
 
+    # List of active comments for this post
+    comments = post.comments.filter(active=True)
+
+    new_comment = None
+
     if request.method == 'POST':
         form = CommentForm(request.POST)
 
         if form.is_valid():
-            comment = form.save(commit=False)
-            comment.post = post
-            comment.save()
+            # Create Comment object but don't save to database yet
+            new_comment = form.save(commit=False)
+            # reply-section
+            reply_id = request.POST.get('comment_id')
+            comment_qs = None
+            if reply_id:
+                comment_qs = Comment.objects.get(id=reply_id)
+            # Assign the current reply to the comment
+            new_comment.reply = comment_qs
+            # Assign the current post to the comment
+            new_comment.post = post
+            # Save the comment to the database
+            new_comment.save()
 
-            return redirect('post_detail', slug=slug)
+            form = CommentForm()
     else:
         form = CommentForm()
 
-    return render(request, 'blog/detail.html', {'post': post, 'form': form, 'related_posts': related_posts, 'popular_posts': popular_posts})
+    return render(request, 'blog/detail.html', {'post': post, 'form': form, 'related_posts': related_posts, 'popular_posts': popular_posts, 'comments': comments})
 
 def category(request, slug):
     category = get_object_or_404(Category, slug=slug)

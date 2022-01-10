@@ -85,9 +85,15 @@ class Comment(models.Model):
     email = models.EmailField()
     body = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    active = models.BooleanField(default=True)
+    reply = models.ForeignKey('Comment', related_name='replies', null=True, blank=True, on_delete=models.CASCADE)
+
+    class Meta:
+        ordering = ('created_at',)
 
     def __str__(self):
-        return self.name
+        return f'Comment by {self.name} on {self.post}'
 
 
 

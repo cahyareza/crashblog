@@ -20,7 +20,9 @@ class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
 
 class CommentAdmin(admin.ModelAdmin):
-	list_display = ['name', 'post', 'created_at']
+    list_display = ('name', 'email', 'post', 'created_at', 'active')
+    list_filter = ('active', 'created_at', 'updated_at')
+    search_fields = ('name', 'email', 'body')
 
 admin.site.register(Post, PostAdmin)
 admin.site.register(Category, CategoryAdmin)
