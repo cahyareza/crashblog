@@ -1,10 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% with comments.count as total_comments %}
+    <h2 class='subtitle is-4'>
+        {{ total_comments }} comment{{ total_comments|pluralize }}
+    </h2>
+{% endwith %}
 
-</body>
-</html>
+{% for comment in comments %}
+    <article class="media">
+        <figure class="media-left">
+            <p class="image is-64x64">
+                <img src="https://bulma.io/images/placeholders/128x128.png">
+            </p>
+        </figure>
+        <div class="media-content">
+            <div class="content">
+                <p>
+                    <strong>{{ comment.name }}</strong>
+                    <br>
+                    {{ comment.body|linebreaks }}
+                    </br>
+                    <small>{{ comment.created_at }}</small>
+                </p>
+            </div>
+
+        </div>
+
+    </article>
+{% empty %}
+    <p>There are no comments yet.</p>
+{% endfor %}
+
+
+<br>
+
+{% if new_comment %}
+    <h2>Your comment has been added.</h2>
+{% else %}
+    <h2 class='subtitle is-4'>Add a new comment</h2>
+    <article class="media">
+        <form method='post'>
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <div class='field'>
+                <div class="control">
+                    <button class="button is-primary">Add comment</button>
+                </div>
+            </div>
+        </form>
+    </article>
+{% endif %}

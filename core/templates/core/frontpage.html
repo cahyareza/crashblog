@@ -10,63 +10,20 @@
                     <div class="columns is-8 is-variable ">
                         <div class="column is-two-thirds has-text-left">
 
-                            {% for post in post_list %}
-                                <div class="section">
-                                    <article class="media">
-                                        <figure class="media-left">
-                                            <img class="image is-128x128"
-                                                src="../public/images/submissions/image-yellow.png">
-                                        </figure>
-                                        <div class="media-content">
-                                            <div class="content">
-                                                <p>
-                                                    <small class="is-size-4">
-                                                        <strong><a href="{% url 'post_detail' post.category.slug post.slug %}">{{ post.title }}</a></strong>
-                                                    </small>
-                                                    <small class="is-size-6">
-                                                        <p>by {{ post.author }} on {{ post.created_at|date:'M d, Y' }} in <a href="{% url 'category_detail' post.category.slug %}">{{ post.category }}</a></p>
-                                                    </small>
-                                                    <br>
-                                                        <p class="has-text-dark">{{ post.intro }}</p>
-                                                        <a href="{% url 'post_detail' post.category.slug post.slug %}">Read more</a>
-                                                    <br>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </article>
-                                </div>
-                            {% endfor %}
-
-
+                            {% include 'parts/post_lists.html' %}
 
                             <hr>
 
-
-                            <nav class="pagination is-centered" role="navigation" aria-label="pagination">
-                                {% if post_list.has_previous %}
-                                    <a href="?page={{ post_list.previous_page_number }}" class="pagination-previous">Previous</a>
-                                {% else %}
-                                    <a class="pagination-previous">Previous</a>
-                                {% endif %}
-                                {% if post_list.has_next %}
-                                    <a href="?page={{ post_list.next_page_number }}" class="pagination-next">Next page</a>
-                                {% else %}
-                                    <a class="pagination-next">Next page</a>
-                                {% endif %}
-                                <ul class="pagination-list">
-                                    {% for i in post_list.paginator.page_range %}
-                                        {% if post_list.number == i %}
-                                            <li><a class="pagination-link is-current" aria-label="Page {{ i }}" aria-current="page">{{ i }}</a></li>
-                                        {% else %}
-                                            <li><a href="?page={{ i }}" class="pagination-link" aria-label="Goto page {{ i }}">{{ i }}</a></li>
-                                        {% endif %}
-                                    {% endfor %}
-                                </ul>
-                            </nav>
+                            {% include 'parts/pagination.html' %}
 
                         </div>
 
-                        {% include 'parts/post_popular.html' %}
+                        <div class="column is-one-third has-text-left">
+                            <h2 class="subtitle post-populer"><strong>Popular post:</strong></h2>
+
+                            {% include 'parts/post_popular.html' %}
+
+                        </div>
 
 				    </div>
                 </section>

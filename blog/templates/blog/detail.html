@@ -4,7 +4,7 @@
 
 {% block content %}
     <section class="hero is-fullheight">
-		<div class="hero-body" id="comment">
+		<div class="hero-body">
 			<div class="container has-text-centered">
                 <section class="section">
                     <div class="columns is-8 is-variable ">
@@ -25,71 +25,24 @@
 
                             <hr>
 
-                            <h2 class="subtitle">Related products</h2>
+                            <h2 class="subtitle">Related post</h2>
 
                             {% with related_posts as post_lists %}
-                                {% include 'parts/post_list.html' %}
+                                {% include 'parts/related_post.html' %}
                             {% endwith %}
 
                             <hr>
 
-                            {% with comments.count as total_comments %}
-                                <h2 class='subtitle is-4'>
-                                    {{ total_comments }} comment{{ total_comments|pluralize }}
-                                </h2>
-                            {% endwith %}
-
-                            {% for comment in comments %}
-                                <article class="media">
-                                    <figure class="media-left">
-                                        <p class="image is-64x64">
-                                            <img src="https://bulma.io/images/placeholders/128x128.png">
-                                        </p>
-                                    </figure>
-                                    <div class="media-content">
-                                        <div class="content">
-                                            <p>
-                                                <strong>{{ comment.name }}</strong>
-                                                <br>
-                                                {{ comment.body|linebreaks }}
-                                                </br>
-                                                <small>{{ comment.created_at }}</small>
-                                            </p>
-                                        </div>
-
-                                    </div>
-
-                                </article>
-                            {% empty %}
-                                <p>There are no comments yet.</p>
-                            {% endfor %}
-
-
-                            <br>
-
-                            {% if new_comment %}
-                                <h2>Your comment has been added.</h2>
-                            {% else %}
-                                <h2 class='subtitle is-4'>Add a new comment</h2>
-                                <article class="media">
-                                    <form method='post'>
-                                        {% csrf_token %}
-
-                                        {{ form.as_p }}
-
-                                        <div class='field'>
-                                            <div class="control">
-                                                <button class="button is-primary">Add comment</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </article>
-                            {% endif %}
-
+                            {% include 'parts/comment.html' %}
 
                         </div>
 
-                        {% include 'parts/post_popular.html' %}
+                        <div class="column is-one-third has-text-left">
+                            <h2 class="subtitle post-populer"><strong>Popular post:</strong></h2>
+
+                            {% include 'parts/post_popular.html' %}
+                        </div>
+
 
                     </div>
                 </section>
