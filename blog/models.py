@@ -87,7 +87,6 @@ class Comment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
-    reply = models.ForeignKey('Comment', related_name='replies', null=True, blank=True, on_delete=models.CASCADE)
 
     class Meta:
         ordering = ('created_at',)

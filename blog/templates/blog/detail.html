@@ -39,68 +39,31 @@
                                 </h2>
                             {% endwith %}
 
-                            <div id="app">
-                                {% for comment in comments %}
-                                    <article class="media">
-                                        <figure class="media-left">
-                                            <p class="image is-64x64">
-                                                <img src="https://bulma.io/images/placeholders/128x128.png">
+                            {% for comment in comments %}
+                                <article class="media">
+                                    <figure class="media-left">
+                                        <p class="image is-64x64">
+                                            <img src="https://bulma.io/images/placeholders/128x128.png">
+                                        </p>
+                                    </figure>
+                                    <div class="media-content">
+                                        <div class="content">
+                                            <p>
+                                                <strong>{{ comment.name }}</strong>
+                                                <br>
+                                                {{ comment.body|linebreaks }}
+                                                </br>
+                                                <small>{{ comment.created_at }}</small>
                                             </p>
-                                        </figure>
-                                        <div class="media-content">
-                                            <div class="content">
-                                                <p>
-                                                    <strong>{{ comment.name }}</strong>
-                                                    <br>
-                                                    {{ comment.body|linebreaks }}
-                                                    </br>
-                                                    <small><button v-on:click="isShow = true">Reply</button> · {{ comment.created_at }}</small>
-                                                    <article class="media" v-if="isShow">
-                                                        <form method='post' >
-                                                            {% csrf_token %}
-                                                            <input type="hidden" name="comment_id" value="{{ comment.id }}">
-                                                            {{ form.as_p }}
-
-                                                            <div class='field'>
-                                                                <div class="control">
-                                                                    <button class="button is-primary">Add reply</button>
-                                                                </div>
-                                                            </div>
-                                                            <button v-on:click="isShow = false">Click here to cancel reply.</button>
-                                                        </form>
-                                                    </article>
-                                                </p>
-                                            </div>
-
-                                            {% for reply in comment.replies.all %}
-                                                <article class="media">
-                                                    <figure class="media-left">
-                                                        <p class="image is-48x48">
-                                                            <img src="https://bulma.io/images/placeholders/96x96.png">
-                                                        </p>
-                                                    </figure>
-                                                    <div class="media-content">
-                                                        <div class="content">
-                                                            <p>
-                                                                <strong>{{ reply.name }}</strong>
-                                                                <br>
-                                                                {{ reply.body|linebreaks }}
-                                                                <br>
-                                                                <small>{{ reply.created_at }}</small>
-
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </article>
-                                            {% endfor %}
                                         </div>
 
-                                    </article>
-                                {% empty %}
-                                    <p>There are no comments yet.</p>
-                                {% endfor %}
+                                    </div>
 
-                            </div>
+                                </article>
+                            {% empty %}
+                                <p>There are no comments yet.</p>
+                            {% endfor %}
+
 
                             <br>
 
@@ -133,16 +96,4 @@
       	    </div>
         </div>
     </section>
-{% endblock %}
-
-{% block scripts %}
-    <script>
-        const app = new Vue({
-            el: '#app',
-            delimeters: ['[[', ']]'],
-            data: {
-                isShow: false,
-            },
-        })
-   </script>
 {% endblock %}
