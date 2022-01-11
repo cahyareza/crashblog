@@ -46,7 +46,7 @@ class Post(models.Model):
     last_visit = models.DateTimeField(blank=True, null=True)
 
     class meta:
-        ordering = ('-created_at',)
+        ordering = ('-id',)
 
     def __str__(self):
         return self.title

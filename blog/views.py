@@ -1,8 +1,10 @@
 import random
+import pytz
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Post, Category, Comment
 from .forms import CommentForm
 from django.db.models import Q
+from django.utils import timezone
 from datetime import datetime
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
@@ -10,7 +12,7 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 def detail(request, category_slug, slug):
     post = get_object_or_404(Post, slug=slug, status=Post.ACTIVE)
     post.num_visits = post.num_visits + 1
-    post.last_visit = datetime.now()
+    post.last_visit = timezone.now()
     post.save()
 
     popular_posts = Post.objects.all().order_by('-num_visits')[0:4]
@@ -51,7 +53,7 @@ def category(request, slug):
     category = get_object_or_404(Category, slug=slug)
     posts = category.posts.filter(status=Post.ACTIVE)
     popular_posts = Post.objects.all().order_by('-num_visits')[0:4]
-    paginator = Paginator(posts, 3)  # 3 posts in each page
+    paginator = Paginator(posts, 10)  # 3 posts in each page
     page = request.GET.get('page', 1)
     try:
         post_list = paginator.page(page)
@@ -77,7 +79,7 @@ def search(request):
 
     posts = Post.objects.filter(status=Post.ACTIVE).filter(Q(title__icontains=query) | Q(intro__icontains=query) | Q(body__icontains=query))
 
-    paginator = Paginator(posts, 3)  # 3 posts in each page
+    paginator = Paginator(posts, 10)  # 3 posts in each page
     page = request.GET.get('page', 1)
     try:
         post_list = paginator.page(page)

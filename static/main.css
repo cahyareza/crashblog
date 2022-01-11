@@ -1,0 +1,18 @@
+.column.is-two-thirds.has-text-left {
+  padding-top: 100px;
+
+}
+
+.column.is-one-third.has-text-left {
+  position: sticky;
+  display: inline-block;
+  vertical-align: top;
+  max-height: 0vh;
+  top: 0;
+  bottom: 0;
+  padding-top: 120px;
+}
+
+.section {
+  padding: 2rem 1.5rem;
+}

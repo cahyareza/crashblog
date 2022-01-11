@@ -16,7 +16,7 @@ def robots_txt(request):
 def frontpage(request):
     posts = Post.objects.filter(status=Post.ACTIVE)
     popular_posts = Post.objects.all().order_by('-num_visits')[0:4]
-    paginator = Paginator(posts, 3)  # 3 posts in each page
+    paginator = Paginator(posts, 10)  # 3 posts in each page
     page = request.GET.get('page', 1)
     try:
         post_list = paginator.page(page)
