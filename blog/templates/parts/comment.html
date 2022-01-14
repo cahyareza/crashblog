@@ -5,32 +5,27 @@
 {% endwith %}
 
 {% for comment in comments %}
-    <article class="media">
-        <figure class="media-left">
-            <p class="image is-64x64">
-                <img src="https://bulma.io/images/placeholders/128x128.png">
-            </p>
-        </figure>
-        <div class="media-content">
-            <div class="content">
-                <p>
-                    <strong>{{ comment.name }}</strong>
-                    <br>
-                    {{ comment.body|linebreaks }}
-                    </br>
-                    <small>{{ comment.created_at }}</small>
-                </p>
-            </div>
-
+    <article class="message">
+        <div class="message-body">
+            <article class="media">
+                <div class="media-content">
+                    <div class="content">
+                        <p>
+                            <strong>{{ comment.name }}</strong> - <small>{{ comment.created_at }}</small>
+                            <br>
+                            </br>
+                            {{ comment.body }}
+                        </p>
+                    </div>
+                </div>
+            </article>
         </div>
-
     </article>
 {% empty %}
     <p>There are no comments yet.</p>
 {% endfor %}
 
-
-<br>
+<hr>
 
 {% if new_comment %}
     <h2>Your comment has been added.</h2>
@@ -40,7 +35,22 @@
         <form method='post'>
             {% csrf_token %}
 
-            {{ form.as_p }}
+            {% for field in form %}
+                <div class="field">
+                    <div class="control">
+                        {{ field.label_tag }} {{ field }}
+                        {% if field.help_text %}
+                        <p class="help">{{ field.help_text|safe }}</p>
+                        {% endif %}
+                        {% for error in field.errors %}
+                            <p class="help is-danger">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+
+            </br>
+
 
             <div class='field'>
                 <div class="control">

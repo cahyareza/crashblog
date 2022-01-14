@@ -13,14 +13,10 @@
                 <div class="card-content">
                     <div class="media">
                         <div class="media-content">
-                            <p href="{% url 'post_detail' p.category.slug p.slug %}" class="title is-6">{{ p.title }}</p>
+                            <a href="{% url 'post_detail' p.category.slug p.slug %}" class="title is-6">{{ p.title|slice:":40" }}...</a>
                         </div>
                     </div>
                 </div>
-
-                <footer class="card-footer">
-                    <a href="{% url 'post_detail' p.category.slug p.slug %}" class="card-footer-item">View</a>
-                </footer>
             </div>
         </div>
     {% endfor %}

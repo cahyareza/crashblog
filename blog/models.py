@@ -34,7 +34,6 @@ class Post(models.Model):
     title = models.CharField(max_length=255)
     author = models.ForeignKey(User, blank=False, null=False, default='admin', on_delete=models.CASCADE)
     slug = models.SlugField()
-    intro = models.TextField()
     body = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=10, choices=CHOICES_STATUS, default=ACTIVE)
@@ -83,7 +82,7 @@ class Comment(models.Model):
     post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     email = models.EmailField()
-    body = models.TextField()
+    body = models.TextField(null=False, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
@@ -93,8 +92,6 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'Comment by {self.name} on {self.post}'
-
-
 
 
 

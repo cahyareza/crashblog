@@ -15,7 +15,7 @@
                             <p>by {{ post.author }} on {{ post.created_at|date:'M d, Y' }} in <a href="{% url 'category_detail' post.category.slug %}">{{ post.category }}</a></p>
                         </small>
                         <br>
-                            <p class="has-text-dark">{{ post.intro }}</p>
+                            <p class="has-text-dark">{{ post.body|slice:":300" }}...</p>
                             <a href="{% url 'post_detail' post.category.slug post.slug %}">Read more</a>
                         <br>
                     </p>

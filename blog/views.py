@@ -17,8 +17,8 @@ def detail(request, category_slug, slug):
 
     popular_posts = Post.objects.all().order_by('-num_visits')[0:4]
     related_posts = list(post.category.posts.filter(parent=None).exclude(id=post.id))
-    if len(related_posts) >=4:
-        related_posts = random.sample(related_posts, 4)
+    if len(related_posts) >=6:
+        related_posts = random.sample(related_posts, 6)
 
     # List of active comments for this post
     comments = post.comments.filter(active=True)
@@ -42,6 +42,7 @@ def detail(request, category_slug, slug):
             new_comment.post = post
             # Save the comment to the database
             new_comment.save()
+
 
             form = CommentForm()
     else:
