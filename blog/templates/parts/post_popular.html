@@ -1,9 +1,9 @@
 {% for popular_post in popular_posts %}
     <article class="media">
         <div class="media-left">
-            <figure class="image is-64x64">
+            <figure class="image is-96x96">
                 {% if popular_post.thumbnail %}
-                    <img class="image is-64x64" src="{{ popular_post.get_thumbnail }}">
+                    <img class="is-rounded" src="{{ popular_post.get_thumbnail }}">
                 {% endif %}
             </figure>
         </div>

@@ -11,9 +11,14 @@
   top: 0;
   bottom: 0;
   padding-top: 120px;
-  padding-bottom: 320px;
+  padding-bottom: 520px;
 }
 
 .section {
   padding: 2rem 1.5rem;
+}
+
+img {
+  border: 3px solid white;
+  padding: 8px;
 }

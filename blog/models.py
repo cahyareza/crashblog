@@ -65,7 +65,7 @@ class Post(models.Model):
             else:
                 return ''
 
-    def make_thumbnail(self, image, size=(300, 200)):
+    def make_thumbnail(self, image, size=(128, 128)):
         img = Image.open(image).convert('RGB')
         img.thumbnail(size)
 
