@@ -15,7 +15,6 @@ def detail(request, category_slug, slug):
     post.last_visit = timezone.now()
     post.save()
 
-    popular_posts = Post.objects.all().order_by('-num_visits')[0:4]
     related_posts = list(post.category.posts.filter(parent=None).exclude(id=post.id))
     if len(related_posts) >=6:
         related_posts = random.sample(related_posts, 6)
@@ -43,17 +42,23 @@ def detail(request, category_slug, slug):
             # Save the comment to the database
             new_comment.save()
 
-
             form = CommentForm()
     else:
         form = CommentForm()
 
-    return render(request, 'blog/detail.html', {'post': post, 'form': form, 'related_posts': related_posts, 'popular_posts': popular_posts, 'comments': comments})
+    context = {
+        'post': post,
+        'form': form,
+        'related_posts': related_posts,
+        'comments': comments
+    }
+
+    return render(request, 'blog/detail.html', context)
 
 def category(request, slug):
     category = get_object_or_404(Category, slug=slug)
     posts = category.posts.filter(status=Post.ACTIVE)
-    popular_posts = Post.objects.all().order_by('-num_visits')[0:4]
+
     paginator = Paginator(posts, 10)  # 3 posts in each page
     page = request.GET.get('page', 1)
     try:
@@ -68,7 +73,6 @@ def category(request, slug):
     context = {
         'category': category,
         'posts':posts,
-        'popular_posts': popular_posts,
         'post_list': post_list,
     }
 
@@ -76,7 +80,6 @@ def category(request, slug):
 
 def search(request):
     query = request.GET.get('query', '')
-    popular_posts = Post.objects.all().order_by('-num_visits')[0:4]
 
     posts = Post.objects.filter(status=Post.ACTIVE).filter(Q(title__icontains=query) | Q(body__icontains=query))
 
@@ -94,7 +97,6 @@ def search(request):
     context = {
         'posts':posts,
         'post_list': post_list,
-        'popular_posts': popular_posts,
         'query': query
     }
 
