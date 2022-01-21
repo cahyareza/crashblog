@@ -78,7 +78,7 @@ def search(request):
     query = request.GET.get('query', '')
     popular_posts = Post.objects.all().order_by('-num_visits')[0:4]
 
-    posts = Post.objects.filter(status=Post.ACTIVE).filter(Q(title__icontains=query) | Q(intro__icontains=query) | Q(body__icontains=query))
+    posts = Post.objects.filter(status=Post.ACTIVE).filter(Q(title__icontains=query) | Q(body__icontains=query))
 
     paginator = Paginator(posts, 10)  # 3 posts in each page
     page = request.GET.get('page', 1)

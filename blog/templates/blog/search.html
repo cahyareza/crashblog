@@ -13,60 +13,36 @@
                             <div class="content is-medium">
                                 <h4>Search results for "{{ query }}"</h4>
                             </div>
-                            {% for post in post_list %}
-                                <div class="section">
-                                    <article class="media">
-                                        <figure class="media-left">
-                                            <img class="image is-128x128"
-                                                src="../public/images/submissions/image-yellow.png">
-                                        </figure>
-                                        <div class="media-content">
-                                            <div class="content">
-                                                <p>
-                                                    <small class="is-size-4">
-                                                        <strong><a href="{% url 'post_detail' post.category.slug post.slug %}">{{ post.title }}</a></strong>
-                                                    </small>
-                                                    <small class="is-size-6">
-                                                        <p>by {{ post.author }} on {{ post.created_at|date:'M d, Y' }} in <a href="{% url 'category_detail' post.category.slug %}">{{ post.category }}</a></p>
-                                                    </small>
-                                                    <br>
-                                                        <p class="has-text-dark">{{ post.body|slice:":300" }}...</p>
-                                                        <a href="{% url 'post_detail' post.category.slug post.slug %}">Read more</a>
-                                                    <br>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </article>
-                                </div>
-                            {% empty %}
-                                <div class="content">
-                                    <p>No result for the given query...</p>
-                                </div>
-                            {% endfor %}
+
+                            {% include 'parts/post_lists.html' %}
 
                             <hr>
 
-                            <nav class="pagination is-centered" role="navigation" aria-label="pagination">
-                                {% if post_list.has_previous %}
-                                    <a href="?query={{ query }}&page={{ post_list.previous_page_number }}" class="pagination-previous">Previous</a>
-                                {% else %}
-                                    <a class="pagination-previous">Previous</a>
-                                {% endif %}
-                                {% if post_list.has_next %}
-                                    <a href="?query={{ query }}&page={{ post_list.next_page_number }}" class="pagination-next">Next page</a>
-                                {% else %}
-                                    <a class="pagination-next">Next page</a>
-                                {% endif %}
-                                <ul class="pagination-list">
-                                    {% for i in post_list.paginator.page_range %}
-                                        {% if post_list.number == i %}
-                                            <li><a class="pagination-link is-current" aria-label="Page {{ i }}" aria-current="page">{{ i }}</a></li>
-                                        {% else %}
-                                            <li><a href="?query={{ query }}&page={{ i }}" class="pagination-link" aria-label="Goto page {{ i }}">{{ i }}</a></li>
-                                        {% endif %}
-                                    {% endfor %}
-                                </ul>
-                            </nav>
+                            {% if post_list %}
+                                <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+                                    {% if post_list.has_previous %}
+                                        <a href="?query={{ query }}&page={{ post_list.previous_page_number }}" class="pagination-previous">Previous</a>
+                                    {% else %}
+                                        <a class="pagination-previous">Previous</a>
+                                    {% endif %}
+                                    {% if post_list.has_next %}
+                                        <a href="?query={{ query }}&page={{ post_list.next_page_number }}" class="pagination-next">Next page</a>
+                                    {% else %}
+                                        <a class="pagination-next">Next page</a>
+                                    {% endif %}
+                                    <ul class="pagination-list">
+                                        {% for i in post_list.paginator.page_range %}
+                                            {% if post_list.number == i %}
+                                                <li><a class="pagination-link is-current" aria-label="Page {{ i }}" aria-current="page">{{ i }}</a></li>
+                                            {% else %}
+                                                <li><a href="?query={{ query }}&page={{ i }}" class="pagination-link" aria-label="Goto page {{ i }}">{{ i }}</a></li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </nav>
+                            {% else %}
+                                <div></div>
+                            {% endif %}
 
                         </div>
 

@@ -12,16 +12,19 @@
                         <small class="is-size-4">
                             <strong><a href="{% url 'post_detail' post.category.slug post.slug %}">{{ post.title }}</a></strong>
                         </small>
-                        <small class="is-size-6">
-                            <p>by {{ post.author }} on {{ post.created_at|date:'M d, Y' }} in <a href="{% url 'category_detail' post.category.slug %}">{{ post.category }}</a></p>
+                        </br>
+                        <small class="is-size-10">
+                            by {{ post.author }} on {{ post.created_at|date:'M d, Y' }} in <a href="{% url 'category_detail' post.category.slug %}">{{ post.category }}</a>
                         </small>
-                        <br>
                             <p class="has-text-dark">{{ post.body|slice:":300" }}...</p>
                             <a href="{% url 'post_detail' post.category.slug post.slug %}">Read more</a>
-                        <br>
                     </p>
                 </div>
             </div>
         </article>
+    </div>
+{% empty %}
+    <div class="content is-size-4">
+        <p>No result...</p>
     </div>
 {% endfor %}
