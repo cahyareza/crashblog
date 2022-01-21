@@ -2,8 +2,9 @@
     <div class="section">
         <article class="media">
             <figure class="media-left">
-                <img class="image is-128x128"
-                    src="../public/images/submissions/image-yellow.png">
+                {% if post.image %}
+                    <img class="image is-128x128" src="{{ post.get_thumbnail }}">
+                {% endif %}
             </figure>
             <div class="media-content">
                 <div class="content">

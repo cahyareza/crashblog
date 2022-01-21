@@ -11,7 +11,6 @@ class Category(models.Model):
     slug = models.SlugField()
 
     class Meta:
-        ordering = ('title',)
         verbose_name_plural = 'Categories'
 
     def __str__(self):
@@ -44,8 +43,8 @@ class Post(models.Model):
     num_visits = models.IntegerField(default=0)
     last_visit = models.DateTimeField(blank=True, null=True)
 
-    class meta:
-        ordering = ('-id',)
+    class Meta:
+        ordering = ('-created_at',)
 
     def __str__(self):
         return self.title
@@ -53,17 +52,6 @@ class Post(models.Model):
     def get_absolute_url(self):
         return '/%s/%s/' % (self.category.slug, self.slug)
 
-    def make_thumbnail(selfself, image, size=(300, 200)):
-        img = Image.open(image)
-        img.convert('RGB')
-        img.thumbnail(size)
-
-        thumb_io = BytesIO()
-        img.save(thumb_io, 'JPEG', quality=85)
-
-        thumbnail = File(thumb_io, name=image.name)
-
-        return thumbnail
 
     def get_thumbnail(self):
         if self.thumbnail:
@@ -77,6 +65,16 @@ class Post(models.Model):
             else:
                 return ''
 
+    def make_thumbnail(self, image, size=(300, 200)):
+        img = Image.open(image).convert('RGB')
+        img.thumbnail(size)
+
+        thumb_io = BytesIO()
+        img.save(thumb_io, 'JPEG', quality=85)
+
+        thumbnail = File(thumb_io, name=image.name)
+
+        return thumbnail
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)
