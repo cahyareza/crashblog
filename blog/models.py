@@ -3,6 +3,7 @@ from io import BytesIO
 from django.core.files import File
 from PIL import Image
 from django.contrib.auth.models import User
+from ckeditor.fields import RichTextField
 
 
 class Category(models.Model):
@@ -33,7 +34,7 @@ class Post(models.Model):
     title = models.CharField(max_length=255)
     author = models.ForeignKey(User, blank=False, null=False, default='admin', on_delete=models.CASCADE)
     slug = models.SlugField()
-    body = models.TextField()
+    body = RichTextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=10, choices=CHOICES_STATUS, default=ACTIVE)
 
