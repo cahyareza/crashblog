@@ -14,9 +14,9 @@
                         </small>
                         </br>
                         <small class="is-size-10">
-                            by {{ post.author }} on {{ post.created_at|date:'M d, Y' }} in <a href="{% url 'category_detail' post.category.slug %}">{{ post.category }}</a>
+                            on {{ post.created_at|date:'M d, Y' }} in <a href="{% url 'category_detail' post.category.slug %}">{{ post.category }}</a>
                         </small>
-                            <p class="has-text-dark">{{ post.body|slice:":300" }}...</p>
+                            <p class="has-text-dark">{{ post.body|slice:":300"|safe }}...</p>
                             <a href="{% url 'post_detail' post.category.slug post.slug %}">Read more</a>
                     </p>
                 </div>

@@ -24,7 +24,7 @@
                                         <div class="content is-medium mt-4">
                                             <h1 class="title">{{ post.title }}</h1>
                                             <div class="subtitle is-6 mt-1">
-                                               <p>by {{ post.author }} on {{ post.created_at|date:'M-d-Y' }} in <a href="{% url 'category_detail' post.category.slug %}">{{ post.category }}</a></p>
+                                               <p>on {{ post.created_at|date:'M-d-Y' }} in <a href="{% url 'category_detail' post.category.slug %}">{{ post.category }}</a></p>
                                             </div>
                                             <p> {{ post.body|convert_markdown|safe }}</p>
                                         </div>

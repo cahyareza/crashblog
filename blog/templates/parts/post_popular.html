@@ -1,18 +1,19 @@
 {% for popular_post in popular_posts %}
-    <article class="media">
-        <div class="media-left">
-            <figure class="image is-96x96">
-                {% if popular_post.thumbnail %}
-                    <img class="is-rounded" src="{{ popular_post.get_thumbnail }}">
-                {% endif %}
-            </figure>
-        </div>
-        <div class="media-content">
-            <div class="content">
-                <p>
-                    <a href="{% url 'post_detail' popular_post.category.slug popular_post.slug %}">{{ popular_post.title }}</a>
-                </p>
-            </div>
-        </div>
-    </article>
+  <div class="card-content">
+    <div class="media">
+      <div class="media-left">
+        <figure class="image">
+            {% if popular_post.image %}
+                <img class="image is-rounded is-96x96" src="{{ popular_post.get_thumbnail }}">
+            {% endif %}
+        </figure>
+      </div>
+      <div class="media-content mt-5">
+        <p class="subtitle is-6">
+            <a href="{% url 'post_detail' popular_post.category.slug popular_post.slug %}">{{ popular_post.title }}</a>
+        </p>
+      </div>
+    </div>
+  </div>
 {% endfor %}
+
