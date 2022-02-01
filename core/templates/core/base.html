@@ -11,92 +11,72 @@
 
     <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<!--    <link rel="stylesheet" href="{% static 'debug.css' %}">-->
     <link rel="stylesheet" href="{% static 'main.css' %}">
-
-    <style>
-        nav.navbar {
-            height: 6rem !important;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06) !important;
-        }
-    </style>
 </head>
 <body>
-    <!-- START NAV -->
-    <nav class="navbar is-info is-fixed-top">
-        <div class="container">
-            <div class="navbar-brand">
-                <a class="navbar-item" href="/"> <strong>Crash blog</strong></a>
-                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                </a>
+    <!-- NAVBAR -->
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="https://bulma.io">
+          <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+        </a>
+
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+
+      <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-start">
+          <a class="navbar-item">
+            Home
+          </a>
+
+          <a class="navbar-item">
+            Documentation
+          </a>
+
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+              More
+            </a>
+
+            <div class="navbar-dropdown">
+              <a class="navbar-item">
+                About
+              </a>
+              <a class="navbar-item">
+                Jobs
+              </a>
+              <a class="navbar-item">
+                Contact
+              </a>
+              <hr class="navbar-divider">
+              <a class="navbar-item">
+                Report an issue
+              </a>
             </div>
-            <div id="navbarMenu" class="navbar-menu">
-                <div class="navbar-start">
-                    <a href="/" class="navbar-item">
-                        Home
-                    </a>
-
-                    <div class="navbar-item has-dropdown is-hoverable">
-                        <a class="navbar-link">
-                            Topics
-                        </a>
-
-                        <div class="navbar-dropdown">
-                            {% for category in menu_categories %}
-                                {% if not category.children.all %}
-                                    <a href="{% url 'category_detail' category.slug %}" class="navbar-item">{{ category.title }}</a>
-                                {% else %}
-                                    <div class="navbar-item has-dropdown is-hoverable">
-                                        <a href="{% url 'category_detail' category.slug %}" class="navbar-link">{{ category.title }}</a>-->
-                                            <div class="navbar-dropdown">
-                                                {% for subcategory in category.children.all %}
-                                                    <a href="{% url 'category_detail' subcategory.slug %}" class="navbar-item">{{ subcategory.title }}</a>
-                                                {% endfor %}
-                                            </div>
-                                    </div>
-                                {% endif %}
-                            {% endfor %}
-                        </div>
-                    </div>
-
-                    <a href="{% url 'about' %}" class="navbar-item">
-                        About
-                    </a>
-                </div>
-
-
-                <div class="navbar-end">
-                    <div class=" navbar-item">
-                        <form method="get" action="{% url 'search' %}">
-                            <div class="control has-icons-left">
-                                <input class="input is-rounded" name="query" type="text" placeholder="Search">
-                                <span class="icon is-left">
-                                    <i class="fa fa-search"></i>
-                                </span>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
+
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="buttons">
+              <a class="button is-primary">
+                <strong>Sign up</strong>
+              </a>
+              <a class="button is-light">
+                Log in
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
     </nav>
-    <!-- END NAV -->
-    <section class="section">
-        <div class="container">
-            {% block content %}
-            {% endblock %}
-        </div>
-    </section>
-
-    <footer class="footer">
-        <div class="content has-text-centered">
-            <p>
-                Copyright (c) 2021 - Crash blog
-            </p>
-        </div>
-    </footer>
+    <!-- NAVBAR -->
 
 </body>
 </html>
