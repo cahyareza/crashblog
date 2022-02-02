@@ -1,19 +1,24 @@
-{% for popular_post in popular_posts %}
-  <div class="card-content">
-    <div class="media">
-      <div class="media-left">
-        <figure class="image">
-            {% if popular_post.image %}
-                <img class="image is-rounded is-96x96" src="{{ popular_post.get_thumbnail }}">
-            {% endif %}
-        </figure>
-      </div>
-      <div class="media-content mt-5">
-        <p class="subtitle is-6">
-            <a href="{% url 'post_detail' popular_post.category.slug popular_post.slug %}">{{ popular_post.title }}</a>
-        </p>
-      </div>
+<div class="card notification is-paddingless is-marginless mobile">
+    <h2 class="subtitle mt-4 mb-2"><strong>Popular post:</strong></h2>
+
+    {% for popular_post in popular_posts %}
+    <div class="card-content is-marginless mt-1" style="padding: 0.4rem;">
+        <div class="media center">
+          <div class="media-left">
+            <figure class="image">
+                {% if popular_post.image %}
+                    <img class="image is-rounded is-64x64" src="{{ popular_post.get_thumbnail }}">
+                {% endif %}
+            </figure>
+          </div>
+          <div class="media-content center">
+              <div class="content is-small">
+                  <a href="{% url 'post_detail' popular_post.category.slug popular_post.slug %}">{{ popular_post.title }}</a>
+              </div>
+          </div>
+        </div>
     </div>
-  </div>
-{% endfor %}
+    {% endfor %}
+</div>
+
 

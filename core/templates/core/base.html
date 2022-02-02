@@ -22,14 +22,6 @@
             <a class="navbar-item" href="/"> <strong>Crash blog</strong></a>
             <a v-bind:aria-expanded="isActive" v-bind:class="{ 'is-active': isActive }" role="button" class="navbar-burger"
                aria-label="menu" data-target="navbarMenu" @click="isActive = !isActive">
-                <form method="get" action="{% url 'search' %}">
-                    <div class="control has-icons-left">
-                        <input class="input is-rounded" name="query" type="text" placeholder="Search">
-                        <span class="icon is-left">
-                            <i class="fa fa-search"></i>
-                        </span>
-                    </div>
-                </form>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
@@ -88,13 +80,13 @@
     <!-- END NAV -->
 
 <!--    section-->
-    <section class="hero is-link is-fullheight-with-navbar">
+    <section class="hero is-fullheight-with-navbar">
         <div class="hero-body">
             {% block content %}
             {% endblock %}
         </div>
 
-        <div class="hero-foot has-text-centered">
+        <div class="hero-foot has-text-centered mb-3">
             <p>
                 Copyright (c) 2021 - Crash blog
             </p>

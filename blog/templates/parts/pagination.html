@@ -10,7 +10,7 @@
         {% else %}
             <a class="pagination-next">Next page</a>
         {% endif %}
-        <ul class="pagination-list">
+        <ul class="pagination-list mobile">
             {% for i in post_list.paginator.page_range %}
                 {% if post_list.number == i %}
                     <li><a class="pagination-link is-current" aria-label="Page {{ i }}" aria-current="page">{{ i }}</a></li>
