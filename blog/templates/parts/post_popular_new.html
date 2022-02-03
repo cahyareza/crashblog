@@ -11,21 +11,15 @@
                     <div class="media-content">
                         <div class="content">
                             <h1 class="title is-size-4-desktop is-size-5  ">
-                                <a href="{% url 'post_detail' popular_post.category.slug popular_post.slug %}">{{ popular_post.title }}</a>
+                                <a href="{% url 'post_detail' popular_post.category.slug popular_post.slug %}">{{ popular_post.title|slice:":35" }}...</a>
                             </h1>
-                            <h2 class="subtitle is-size-7 has-text-grey-light">
+                            <h2 class="subtitle is-size-6-desktop is-size-7 has-text-grey-light">
                                 on {{ popular_post.created_at|date:'d M' }} in <a href="{% url 'post_detail' popular_post.category.slug popular_post.slug %}">{{ popular_post.category }}</a>
                             </h2>
                         </div>
                     </div>
                 </article>
             </div>
-<!--                <h1 class="title is-size-5 has-text-centered">-->
-<!--                    <a href="{% url 'post_detail' popular_post.category.slug popular_post.slug %}">{{ forloop.counter }}.{{ popular_post.title }}</a>-->
-<!--                </h1>-->
-<!--                <h2 class="subtitle is-size-6">-->
-<!--                    on {{ popular_post.created_at|date:'d M' }} in <a href="{% url 'post_detail' popular_post.category.slug popular_post.slug %}">{{ popular_post.category }}</a>-->
-<!--                </h2>-->
         </div>
     {% endfor %}
 </div>
