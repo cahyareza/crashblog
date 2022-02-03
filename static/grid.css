@@ -1,0 +1,23 @@
+#1 { grid-area: 1; }
+#2 { grid-area: 2; }
+#3 { grid-area: 3; }
+#4 { grid-area: 4; }
+#5 { grid-area: 5; }
+
+#grid {
+    display: grid;
+    grid-template-areas:
+        "1 2 3"
+        "4 5 5";
+
+    grid-row-gap: 1rem;
+}
+
+@media (max-width: 512px) {
+    #grid {
+        grid-template-areas:
+            "1 2"
+            "3 4"
+            "5 5";
+    }
+}

@@ -4,22 +4,23 @@
 
 {% block content %}
 
-    <div class="columns is-8 is-variable is-paddingless is-marginless">
-        <div class="column is-two-thirds has-text-left">
+    <div class="section">
+        <div class="columns is-variable is-paddingless is-marginless">
+            <div class="column is-full has-text-left">
 
-            {% include 'parts/post_lists.html' %}
+                <h1 class="title is-size-5-desktop is-size-6 is-uppercase">Trending on blog</h1>
+                {% include 'parts/post_popular_new.html' %}
 
-            <hr>
+                <hr>
 
-            {% include 'parts/pagination.html' %}
+                {% include 'parts/post_lists.html' %}
+
+                <hr>
+
+                {% include 'parts/pagination.html' %}
+
+            </div>
 
         </div>
-
-        <div class="column is-one-third has-text-left is-paddingless is-marginless">
-
-            {% include 'parts/post_popular.html' %}
-
-        </div>
-
     </div>
 {% endblock %}
