@@ -22,15 +22,13 @@
         </div>
     </article>
 {% empty %}
-    <p>There are no comments yet.</p>
+    <p class="has-text-grey">There are no comments yet.</p>
 {% endfor %}
-
-<hr>
 
 {% if new_comment %}
     <h2>Your comment has been added.</h2>
 {% else %}
-    <h2 class='subtitle is-4'>Add a new comment</h2>
+    <h2 class='subtitle is-4 mt-3'>Add a new comment</h2>
     <article class="media">
         <form method='post'>
             {% csrf_token %}

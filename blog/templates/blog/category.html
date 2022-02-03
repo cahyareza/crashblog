@@ -3,32 +3,22 @@
 {% block title %}{{ category.title }} | {% endblock %}
 
 {% block content %}
-    <section class="hero is-fullheight">
-        <div class="hero-body">
-            <div class="container has-text-centered">
-                <section class="section">
-                    <div class="columns is-8 is-variable ">
-                        <div class="column is-two-thirds has-text-left">
+    <div class="columns is-8 is-variable is-paddingless is-marginless">
+        <div class="column is-two-thirds has-text-left">
 
-                            {% include 'parts/post_lists.html' %}
+            {% include 'parts/post_lists.html' %}
 
-                            <hr>
+            <hr>
 
-                            {% include 'parts/pagination.html' %}
+            {% include 'parts/pagination.html' %}
 
-                        </div>
-
-                        <div class="column is-one-third has-text-left">
-                            <h2 class="subtitle post-populer"><strong>Popular post:</strong></h2>
-
-                            {% include 'parts/post_popular.html' %}
-
-                        </div>
-
-                    </div>
-                </section>
-            </div>
         </div>
-    </section>
 
+        <div class="column is-one-third has-text-left is-paddingless is-marginless">
+
+            {% include 'parts/post_popular.html' %}
+
+        </div>
+
+    </div>
 {% endblock %}

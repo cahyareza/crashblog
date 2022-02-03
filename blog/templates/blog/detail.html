@@ -5,56 +5,43 @@
 {% block title %}{{ post.title}} | {% endblock %}
 
 {% block content %}
-    <section class="hero is-fullheight">
-		<div class="hero-body">
-			<div class="container has-text-centered">
-                <section class="section">
-                    <div class="columns is-8 is-variable ">
-                        <div class="column is-two-thirds has-text-left">
-                            <div class="media">
-                                <div class="media-content">
-                                    <div class="content">
-
-                                        {% if post.image %}
-                                            <figure class='image is-16by9 mb-6'>
-                                                <img src="{{ post.image.url }}">
-                                            </figure>
-                                        {% endif %}
-
-                                        <div class="content is-medium mt-4">
-                                            <h1 class="title">{{ post.title }}</h1>
-                                            <div class="subtitle is-6 mt-1">
-                                               <p>on {{ post.created_at|date:'M-d-Y' }} in <a href="{% url 'category_detail' post.category.slug %}">{{ post.category }}</a></p>
-                                            </div>
-                                            <p> {{ post.body|convert_markdown|safe }}</p>
-                                        </div>
-
-                                        <hr>
-
-                                        <h2 class="subtitle is-4">Related posts</h2>
-
-                                        {% with related_posts as post_lists %}
-                                            {% include 'parts/related_post.html' %}
-                                        {% endwith %}
-
-                                        <hr>
-
-                                        {% include 'parts/comment.html' %}
-
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="column is-one-third has-text-left">
-                            <h2 class="subtitle post-populer"><strong>Popular post:</strong></h2>
-
-                            {% include 'parts/post_popular.html' %}
-                        </div>
-                    </div>
-                </section>
-      	    </div>
+    <section class="section is-paddingless-horizontal">
+        <div class="container grid">
+            <div class="section is-paddingless mb-5">
+                <h1 class="title is-size-3-tablet is-size-5 mb-5">{{ post.title }}</h1>
+                <h2 class="subtitle is-size-5-desktop is-size-6-tablet is-size-7">
+                   <p>on {{ post.created_at|date:'M-d-Y' }} in <a href="{% url 'category_detail' post.category.slug %}">{{ post.category }}</a></p>
+                </h2>
+            </div>
         </div>
+
+        {% if post.image %}
+            <figure class='image is-16by9 card'>
+                <img src="{{ post.image.url }}">
+            </figure>
+            <figcaption class="level mt-2">
+                <small class="level-item has-text-grey">
+                    The blog we'll build. Click to continue on Scrimba
+                </small>
+            </figcaption>
+        {% endif %}
+
+        <div class="content is-medium-desktop is-small-tablet">
+            <p> {{ post.body|convert_markdown|safe }}</p>
+        </div>
+
+        <hr>
+
+        <h2 class="subtitle is-4">Related posts</h2>
+
+        {% with related_posts as post_lists %}
+            {% include 'parts/related_post.html' %}
+        {% endwith %}
+
+        <hr>
+
+        {% include 'parts/comment.html' %}
+
     </section>
+
 {% endblock %}

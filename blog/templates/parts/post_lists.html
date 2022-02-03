@@ -1,36 +1,35 @@
 {% for post in post_list %}
-
     <div class="card box ">
         <div class="card-content is-paddingless is-marginless mb-2">
             <article class="media center">
                 <figure class="media-left mobile">
                     {% if post.image %}
-                        <img class="image card is-128x128" src="{{ post.get_thumbnail }}">
+                        <img class="image card is-128x128 imagetablet" src="{{ post.get_thumbnail }}">
                     {% endif %}
                 </figure>
                 <div class="media-content">
                     <div class="content">
                         <p>
-                            <small class="is-size-4">
+                            <small class="is-size-4-desktop is-size-5-tablet is-size-5-mobile">
                                 <strong><a href="{% url 'post_detail' post.category.slug post.slug %}">{{ post.title }}</a></strong>
                             </small>
                             </br>
-                            <small class="is-size-10">
-                                on {{ post.created_at|date:'M d, Y' }} in <a href="{% url 'category_detail' post.category.slug %}">{{ post.category }}</a>
+                            <small class="is-size-6-desktop is-size-7">
+                                on {{ post.created_at|date:'d M' }} in <a href="{% url 'category_detail' post.category.slug %}">{{ post.category }}</a>
                             </small>
                         </p>
                     </div>
                 </div>
             </article>
         </div>
-        <div class="content">
-            <p class="has-text-dark">{{ post.body|slice:":300"|safe }}...</p>
+        <div class="content is-size-6-desktop is-size-7">
+            <p class="has-text-dark">{{ post.body|slice:":200"|safe }}...</p>
             <a href="{% url 'post_detail' post.category.slug post.slug %}">Read more</a>
         </div>
     </div>
 
 {% empty %}
-    <div class="content is-size-4">
+    <div class="content is-size-4" style="width: 700px;">
         <p>No result...</p>
     </div>
 {% endfor %}
