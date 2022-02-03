@@ -4,6 +4,7 @@ from django.core.files import File
 from PIL import Image
 from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
+from taggit.managers import TaggableManager
 
 
 class Category(models.Model):
@@ -43,6 +44,7 @@ class Post(models.Model):
 
     num_visits = models.IntegerField(default=0)
     last_visit = models.DateTimeField(blank=True, null=True)
+    tags = TaggableManager()
 
     class Meta:
         ordering = ('-created_at',)

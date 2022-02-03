@@ -7,6 +7,7 @@ from django.db.models import Q
 from django.utils import timezone
 from datetime import datetime
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from taggit.models import Tag
 
 
 def detail(request, category_slug, slug):
@@ -101,3 +102,29 @@ def search(request):
     }
 
     return render(request, 'blog/search.html', context)
+
+def tags(request, tag_slug=None):
+    object_list = Post.objects.filter(status=Post.ACTIVE)
+    tag = None
+
+    if tag_slug:
+        tag = get_object_or_404(Tag, slug=tag_slug)
+        object_list = object_list.filter(tags_in=[tag])
+
+    paginator = Paginator(object_list, 10)  # 3 posts in each page
+    page = request.GET.get('page', 1)
+    try:
+        post_list = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer deliver the first page
+        post_list = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range deliver last page of results
+        post_list = paginator.page(paginator.num_pages)
+
+    context = {
+        'post_list': post_list,
+        'tag': tag,
+    }
+
+    return render(request, 'blog/tags.html', context)
