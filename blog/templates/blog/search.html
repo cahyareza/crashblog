@@ -5,7 +5,7 @@
 
 {% block content %}
     <div class="columns is-8 is-variable is-paddingless is-marginless">
-        <div class="column is-two-thirds has-text-left">
+        <div class="column is-full has-text-left">
             <div class="content is-medium mt-5">
                 <h4>Search results for "{{ query }}"</h4>
             </div>
@@ -40,10 +40,6 @@
                 <div></div>
             {% endif %}
 
-        </div>
-
-        <div class="column is-one-third has-text-left">
-            {% include 'parts/post_popular.html' %}
         </div>
 
     </div>

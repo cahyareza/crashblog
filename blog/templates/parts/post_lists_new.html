@@ -1,0 +1,50 @@
+<div class="columns is-multiline is-paddingless">
+
+    <div class="column is-one-third-desktop is-full-tablet mb-4">
+        <h1 class="title is-size-5-desktop is-size-6 has-text-weight-semibold is-uppercase is-paddingless">Discover more of what matters to you</h1>
+        <div class="card-content is-paddingless is-marginless">
+            <article class="media">
+                <div class="tags">
+                    {% for ta in tag_list %}
+                        <span class="tag">{{ ta }}</span>
+                    {% endfor %}
+                </div>
+            </article>
+        </div>
+    </div>
+
+
+    <div class="column is-two-thirds-desktop is-full-tablet">
+        <h1 class="title is-size-5-desktop is-size-6 has-text-weight-semibold is-uppercase is-paddingless">New post</h1>
+        {% for post in post_list %}
+            <div class="card-content is-paddingless is-marginless mb-2">
+                <article class="media center">
+                    <figure class="media-left mobile">
+                        {% if post.image %}
+                            <img class="image card is-128x128 imagetablet" src="{{ post.get_thumbnail }}">
+                        {% endif %}
+                    </figure>
+                    <div class="media-content">
+                        <div class="content">
+                            <h1 class="title is-size-4-desktop is-size-5  ">
+                                <a href="{% url 'post_detail' post.category.slug post.slug %}">{{ post.title}}</a>
+                            </h1>
+                            <h2 class="subtitle is-size-6-desktop is-size-7 has-text-grey-light">
+                                on {{ post.created_at|date:'d M' }} in <a href="{% url 'post_detail' post.category.slug post.slug %}">{{ post.category }}</a>
+                            </h2>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="content is-size-6-desktop is-size-7">
+                <p class="has-text-dark">{{ post.body|slice:":200"|safe }}...</p>
+                <a href="{% url 'post_detail' post.category.slug post.slug %}">Read more</a>
+            </div>
+        {% empty %}
+            <div class="content is-size-4" style="width: 700px;">
+                <p>No result...</p>
+            </div>
+        {% endfor %}
+    </div>
+
+</div>

@@ -51,35 +51,6 @@ def detail(request, category_slug, slug):
     else:
         form = CommentForm()
 
-
-    # # tag
-    #
-    # tag = None
-    #
-    # if tag_slug:
-    #     tag = get_object_or_404(Tag, slug=tag_slug)
-    #     # tags = post.tags.all()
-    #     tag_list = post.filter(tags__in=[tag])
-    #     # posts = category.posts.filter(status=Post.ACTIVE)
-    #
-    #     paginator = Paginator(tags, 10)  # 3 posts in each page
-    #     page = request.GET.get('page', 1)
-    #     try:
-    #         post_list = paginator.page(page)
-    #     except PageNotAnInteger:
-    #         # If page is not an integer deliver the first page
-    #         post_list = paginator.page(1)
-    #     except EmptyPage:
-    #         # If page is out of range deliver last page of results
-    #         post_list = paginator.page(paginator.num_pages)
-    #
-    #     context = {
-    #         'post_list': post_list,
-    #         'tag': tag,
-    #     }
-    #
-    #     return render(request, 'blog/tags.html', context)
-
     context = {
         'post': post,
         'form': form,

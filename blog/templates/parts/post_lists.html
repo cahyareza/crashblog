@@ -8,15 +8,12 @@
             </figure>
             <div class="media-content">
                 <div class="content">
-                    <p>
-                        <small class="is-size-4-desktop is-size-5-tablet is-size-5-mobile">
-                            <strong><a href="{% url 'post_detail' post.category.slug post.slug %}">{{ post.title }}</a></strong>
-                        </small>
-                        </br>
-                        <small class="is-size-6-desktop is-size-7 has-text-grey-light">
-                            on {{ post.created_at|date:'d M' }} in <a href="{% url 'category_detail' post.category.slug %}">{{ post.category }}</a>
-                        </small>
-                    </p>
+                    <h1 class="title is-size-4-desktop is-size-5  ">
+                        <a href="{% url 'post_detail' post.category.slug post.slug %}">{{ post.title}}</a>
+                    </h1>
+                    <h2 class="subtitle is-size-6-desktop is-size-7 has-text-grey-light">
+                        on {{ post.created_at|date:'d M' }} in <a href="{% url 'post_detail' post.category.slug post.slug %}">{{ post.category }}</a>
+                    </h2>
                 </div>
             </div>
         </article>
