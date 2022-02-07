@@ -33,7 +33,7 @@ urlpatterns = [
     path('robots.txt', robots_txt,name='robots_txt'),
     path('admin/', admin.site.urls),
     path('about/', about, name='about'),
-    path('', include('blog.urls')),
     path('', frontpage, name='frontpage'),
+    path('', include('blog.urls')),
     path("__reload__/", include("django_browser_reload.urls")),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

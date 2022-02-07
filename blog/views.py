@@ -11,6 +11,9 @@ from taggit.models import Tag
 
 
 def detail(request, category_slug, slug):
+
+    # post
+
     post = get_object_or_404(Post, slug=slug, status=Post.ACTIVE)
     post.num_visits = post.num_visits + 1
     post.last_visit = timezone.now()
@@ -21,6 +24,7 @@ def detail(request, category_slug, slug):
         related_posts = random.sample(related_posts, 6)
 
     # List of active comments for this post
+
     comments = post.comments.filter(active=True)
 
     new_comment = None
@@ -47,6 +51,35 @@ def detail(request, category_slug, slug):
     else:
         form = CommentForm()
 
+
+    # # tag
+    #
+    # tag = None
+    #
+    # if tag_slug:
+    #     tag = get_object_or_404(Tag, slug=tag_slug)
+    #     # tags = post.tags.all()
+    #     tag_list = post.filter(tags__in=[tag])
+    #     # posts = category.posts.filter(status=Post.ACTIVE)
+    #
+    #     paginator = Paginator(tags, 10)  # 3 posts in each page
+    #     page = request.GET.get('page', 1)
+    #     try:
+    #         post_list = paginator.page(page)
+    #     except PageNotAnInteger:
+    #         # If page is not an integer deliver the first page
+    #         post_list = paginator.page(1)
+    #     except EmptyPage:
+    #         # If page is out of range deliver last page of results
+    #         post_list = paginator.page(paginator.num_pages)
+    #
+    #     context = {
+    #         'post_list': post_list,
+    #         'tag': tag,
+    #     }
+    #
+    #     return render(request, 'blog/tags.html', context)
+
     context = {
         'post': post,
         'form': form,
@@ -70,6 +103,7 @@ def category(request, slug):
     except EmptyPage:
         # If page is out of range deliver last page of results
         post_list = paginator.page(paginator.num_pages)
+
 
     context = {
         'category': category,
@@ -103,13 +137,13 @@ def search(request):
 
     return render(request, 'blog/search.html', context)
 
-def tags(request, tag_slug=None):
+def tag(request, tag_slug=None):
     object_list = Post.objects.filter(status=Post.ACTIVE)
     tag = None
 
     if tag_slug:
         tag = get_object_or_404(Tag, slug=tag_slug)
-        object_list = object_list.filter(tags_in=[tag])
+        object_list = object_list.filter(tags__in=[tag])
 
     paginator = Paginator(object_list, 10)  # 3 posts in each page
     page = request.GET.get('page', 1)
