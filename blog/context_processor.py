@@ -7,7 +7,8 @@ def menu_categories(request):
     return {'menu_categories': categories}
 
 def popular_posts(request):
-    popular_posts = Post.objects.all().order_by('-num_visits')[0:2]
+    popular_posts = Post.objects.all().order_by('-num_visits')[0:6]
+    # print(popular_posts)
 
     return {'popular_posts': popular_posts}
 

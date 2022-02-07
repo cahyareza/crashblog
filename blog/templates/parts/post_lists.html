@@ -11,8 +11,11 @@
                     <h1 class="title is-size-4-desktop is-size-5  ">
                         <a href="{% url 'post_detail' post.category.slug post.slug %}">{{ post.title}}</a>
                     </h1>
-                    <h2 class="subtitle is-size-6-desktop is-size-7 has-text-grey-light">
-                        on {{ post.created_at|date:'d M' }} in <a href="{% url 'post_detail' post.category.slug post.slug %}">{{ post.category }}</a>
+                    <h2 class="subtitle  is-size-7 has-text-grey-light">
+                        on {{ post.created_at|date:'d M' }} ·
+                        {% for tag in post.tags.all %}
+                            <span> <a href="{% url 'tag_list' tag.slug %}" class="tag">{{ tag }}</a></span>
+                        {% endfor %}
                     </h2>
                 </div>
             </div>

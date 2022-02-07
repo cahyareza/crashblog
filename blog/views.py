@@ -80,6 +80,7 @@ def category(request, slug):
         'category': category,
         'posts':posts,
         'post_list': post_list,
+        'category_slug': slug
     }
 
     return render(request, 'blog/category.html', context)

@@ -4,19 +4,16 @@
 
 {% block content %}
     <div class="columns is-8 is-variable mt-5 ml-2 mr-2">
-        <div class="column is-two-thirds has-text-left">
+        <div class="column is-8 is-offset-2 has-text-left">
+            <div class="content is-medium mt-5">
+                <h4>Category results for "{{ category_slug }}"</h4>
+            </div>
 
             {% include 'parts/post_lists.html' %}
 
             <hr>
 
             {% include 'parts/pagination.html' %}
-
-        </div>
-
-        <div class="column is-one-third has-text-left is-paddingless is-marginless">
-
-            {% include 'parts/post_popular.html' %}
 
         </div>
 

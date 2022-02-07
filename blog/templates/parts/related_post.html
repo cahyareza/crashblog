@@ -1,19 +1,17 @@
 <div class="columns is-multiline">
     {% for p in post_lists %}
-        <div class="column is-4 p-0">
+        <div class="column is-4 is-3-desktop p-0">
             <div class="card is-marginless is-paddingless">
                 <div class="card-image">
-                    <figure class="image is-4by3 mobile">
+                    <figure class="image is-square mobile">
                         {% if p.thumbnail %}
                             <img src="{{ p.get_thumbnail }}">
                         {% endif %}
                     </figure>
                 </div>
-                <div class="card-content p-1">
+                <div class="card-content is-marginless" style="padding: 0.8rem;">
                     <div class="media">
-                        <p>
-                            <a href="{% url 'post_detail' p.category.slug p.slug %}" class="title is-6">{{ p.title|slice:":30" }}...</a>
-                        </p>
+                        <a href="{% url 'post_detail' p.category.slug p.slug %}" class="subtitle is-size-6">{{ p.title|slice:":30" }}...</a>
                     </div>
                 </div>
             </div>
