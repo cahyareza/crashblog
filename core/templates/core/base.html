@@ -18,7 +18,7 @@
 </head>
 <body>
     <!-- START NAV -->
-    <nav class="navbar is-info is-fixed-top" id="apps">
+    <nav class="navbar has-background-info-light is-fixed-top" id="apps">
         <div class="navbar-brand">
             <a class="navbar-item" href="/"> <strong>Crash blog</strong></a>
             <a v-bind:aria-expanded="isActive" v-bind:class="{ 'is-active': isActive }" role="button" class="navbar-burger"
@@ -30,11 +30,7 @@
         </div>
 
         <div id="navbarMenu" class="navbar-menu" v-bind:class="{ 'is-active': isActive }">
-            <div class="navbar-start">
-                <a href="/" class="navbar-item">
-                    Home
-                </a>
-
+            <div class="navbar-start has-text-weight-bold">
                 <div class="navbar-item has-dropdown is-hoverable">
                     <a class="navbar-link">
                         Topics
@@ -58,13 +54,17 @@
                     </div>
                 </div>
 
-                <a href="{% url 'about' %}" class="navbar-item">
+                <a href="/" class="navbar-item">
                     About
+                </a>
+
+                <a href="{% url 'about' %}" class="navbar-item">
+                    Contact
                 </a>
             </div>
 
 
-            <div class="navbar-end">
+            <div class="navbar-end has-text-weight-bold">
                 <div class=" navbar-item">
                     <form method="get" action="{% url 'search' %}">
                         <div class="control has-icons-left">

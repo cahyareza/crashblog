@@ -41,6 +41,7 @@ class Post(models.Model):
 
     image = models.ImageField(upload_to='uploads/', blank=True, null=True)
     thumbnail = models.ImageField(upload_to='uploads/', blank=True, null=True)
+    image_footer = models.CharField(max_length=50, default='admin')
 
     num_visits = models.IntegerField(default=0)
     last_visit = models.DateTimeField(blank=True, null=True)

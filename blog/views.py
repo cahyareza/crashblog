@@ -55,7 +55,8 @@ def detail(request, category_slug, slug):
         'post': post,
         'form': form,
         'related_posts': related_posts,
-        'comments': comments
+        'comments': comments,
+        'figcaption': post.image_footer,
     }
 
     return render(request, 'blog/detail.html', context)
